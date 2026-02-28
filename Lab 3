@@ -1,0 +1,61 @@
+/*
+ * Oscar Rodriguez
+ * 2/26/26
+ * EE186
+ * Lab 3
+ */
+#include <stdio.h>
+
+int main(void)
+{
+    int num1, num2; //declaration of integer, and float variables for out whole and decimal numbers
+    float dNum1, dNum2;
+    char str[1]; //declaration of character variable for simple user input
+
+
+    printf("Enter 'Y' for whole number or 'N' for decimal: "); //prompts user to choose whole or decimal numbers
+    scanf_s("%c", &str);
+
+while (1) //while loop repeats the process continuously until program is manually terminated
+{
+    if (str[0] == 'Y') //conditional statement, enters block is user chooses 'Y' for whole numbers
+    {
+        printf_s("Enter two whole numbers: "); //Prompts to enter 2 whole numbers
+        scanf_s("%d %d", &num1, &num2); //takes user input and assigns to variables in memory
+        int wholeDiv = num1 / num2; //whole number division is computed
+        char str1[1]; //creating character variable for following prompt
+        printf("Enter 'W' for whole number, or 'D' for decimal: "); //prompt to choose to display whole or decimal #
+        scanf_s(" %c", &str1); //takes user input and is assigns to char variable above
+        if (str1[0] == 'W') // nested if else if statement that prints the user's choice
+        {
+            printf_s("The whole number is: %d\n", wholeDiv); //prints original computation
+        } else if (str1[0] == 'D')
+        {
+            printf_s("The decimal number is %f\n", (float)wholeDiv); //prints out the decimal typecast of original
+        }
+
+
+    }
+    if (str[0] == 'N') //the conditional if statement if user chose decimal
+    {
+        //same logical flow as previous if statement but with initial inputs being decimal numbers
+        printf_s("Enter two decimal numbers: ");
+        scanf_s("%f %f", &dNum1, &dNum2);
+        float decDiv = dNum1 / dNum2;
+        char str1[1];
+        printf("Enter 'W' for whole number, or 'D' for decimal: ");
+        scanf_s(" %c", &str1);
+        if (str1[0] == 'W')
+        {
+            printf_s("The whole number is: %d\n", (int)decDiv);
+        } else if (str1[0] == 'D')
+        {
+            printf_s("The decimal number is %f\n", decDiv);
+        }
+    }
+
+}
+
+
+    return 0;
+}
