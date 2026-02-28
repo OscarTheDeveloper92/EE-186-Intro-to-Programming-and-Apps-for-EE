@@ -1,0 +1,34 @@
+// Created by Oscar Rodriguez on 2/4/2026.
+/* The program accepts 3 inputs from the user, all integers
+ * First input: number of loops
+ * Second input: initial value to perform calculations with
+ * Third inpout: the amount to add by on each loop
+ * It will have the same output text as it iterates
+ * Add final message with the final value once done with execution*/
+
+#include <stdio.h>
+
+int main()
+{
+    int loops;
+    int startNum;
+    int addBy;
+
+    printf("Enter number of loops: ");
+    scanf_s("%d", &loops);
+    printf("Enter the number you wish to start adding at: ");
+    scanf_s("%d", &startNum);
+    printf("Enter the amount you wish to add to each sequential number: ");
+    scanf_s("%d", &addBy);
+    printf("Initial value to perform calculations: %d\n", startNum);
+    printf("We'll be adding each loop by: %d\n", addBy);
+
+    for (int i = 1; i <= loops; i++)
+    {
+        printf("Loop\n");
+        startNum = startNum + addBy;
+    }
+    printf("Total sum: %d", startNum);
+
+    return 0;
+}
