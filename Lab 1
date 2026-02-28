@@ -1,0 +1,17 @@
+/*
+As discussed in class, you will be expanding upon the introduction assignment now that you have an idea of how the printf() command works. 
+Please create a new program that will print out an emoticon on the console. You may format it however you like (one really long printf() or 
+multiple smaller printf() commands) but it must be at least three to four lines tall. It must have some recognizable shape and you can use any 
+of the available shapes or symbols. Avoid using an excessive number of printf() commands. For example, if there were 100 printf() calls but 
+the output is only 20 lines tall, there is an issue with how you split up things to be printed. An example of an emotion is listed below
+*/
+//New Lab #1 Emoticon
+
+#include <stdio.h>
+
+int main(void) {
+    printf("This is my star :) \n");
+    printf("   /\\   \n  <  >\n   VV");
+
+    return 0;
+}
