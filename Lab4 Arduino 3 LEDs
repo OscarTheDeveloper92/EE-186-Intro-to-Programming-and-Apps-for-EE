@@ -1,0 +1,115 @@
+/*
+You will be creating a program in the Arduino IDE for this assignment. You will be trying to control multiple LEDs with a push button.
+There will be three LEDs connected to the microcontroller and you will choose which pins they are assigned to.
+All three LEDs will start in the OFF state. When the user presses the button for the first time, the second LED will turn on and stay on. 
+When the user presses the button for the second time, the first and third LEDs will start blinking together while the second LED turns off.
+When the user presses the button for a third time, the LEDs will turn on in sequence and then turn off in sequence.
+EG - LED 1 turns on while the other two are off. After a delay, LED 2 turns on as well. After all three are on, LED 3 turns off first followed by LED 2 and then LED 1. 
+The program does not need to do anything further after the third button press. You will want to use some form of debouncing for the button to ensure it is being detected properly. 
+*/
+// C++ code
+//
+
+//pins initiated to my button and LEDs
+const int buttonPin = 7;
+
+const int led1 = 3;
+const int led2 = 5;
+const int led3 = 6;
+
+int ledState = LOW; //my LEDs will begin turned off
+boolean buttonState = LOW;
+
+int pressed = 0; //initializing my counter
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(buttonPin, INPUT);
+  pinMode(led1, OUTPUT);
+  pinMode(led2, OUTPUT);
+  pinMode(led2, OUTPUT);
+  
+  //digitalWrite(led1, ledState);
+  //digitalWrite(led2, ledState);
+  //digitalWrite(led3, ledState);
+}
+
+void loop()
+{
+  if(debounceButton(buttonState) == HIGH && buttonState == LOW)
+  {
+    pressed++;
+    buttonState = HIGH;
+  }
+  else if(debounceButton(buttonState) == LOW && buttonState == HIGH)
+  {
+    buttonState = LOW;
+  }
+  
+  if(pressed == 1)
+  {
+    digitalWrite(led2, HIGH);
+    digitalWrite(led1, LOW);
+    digitalWrite(led3, LOW);
+  }
+  if(pressed == 2)
+  {
+    digitalWrite(led1, HIGH);
+    digitalWrite(led3, HIGH);
+    digitalWrite(led2, LOW);
+    delay(500);
+    digitalWrite(led1, LOW);
+    digitalWrite(led3, LOW);
+    digitalWrite(led2, LOW);
+    delay(500);
+  }
+  if(pressed == 3)
+  {
+    digitalWrite(led1, LOW);
+    digitalWrite(led2, LOW);
+    digitalWrite(led3, LOW);
+    delay(1000);
+    digitalWrite(led1, HIGH);
+    digitalWrite(led2, LOW);
+    digitalWrite(led3, LOW);
+    delay(1000);
+    digitalWrite(led1, HIGH);
+    digitalWrite(led2, HIGH);
+    digitalWrite(led3, LOW);
+    delay(1000);
+    digitalWrite(led1, HIGH);
+    digitalWrite(led2, HIGH);
+    digitalWrite(led3, HIGH);
+    delay(1000);
+    digitalWrite(led1, HIGH);
+    digitalWrite(led2, HIGH);
+    digitalWrite(led3, LOW);
+    delay(1000);
+    digitalWrite(led1, HIGH);
+    digitalWrite(led2, LOW);
+    digitalWrite(led3, LOW);
+    delay(1000);
+    digitalWrite(led1, LOW);
+    digitalWrite(led2, LOW);
+    digitalWrite(led3, LOW);
+    delay(1000);
+    digitalWrite(led1, LOW);
+    digitalWrite(led2, LOW);
+    digitalWrite(led3, LOW);
+    delay(1000);
+    
+    
+  }
+}
+
+boolean debounceButton(boolean state)
+{
+  boolean stateNow = digitalRead(buttonPin);
+  if(state != stateNow)
+  {
+    delay(10);
+    stateNow = digitalRead(buttonPin);
+  }
+  return stateNow;
+}
