@@ -108,7 +108,7 @@ boolean debounceButton(boolean state)
   boolean stateNow = digitalRead(buttonPin);
   if(state != stateNow)
   {
-    delay(10);
+    delay(20);
     stateNow = digitalRead(buttonPin);
   }
   return stateNow;
