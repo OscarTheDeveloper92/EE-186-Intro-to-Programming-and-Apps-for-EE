@@ -1,0 +1,38 @@
+/*
+Testing out photoresistor component to check for functionality.
+*/
+int lightPin=A0;
+int greenLed=6;
+int redLed=7;
+int lightVal;
+int dv=250;
+void setup() {
+  //put your setup code here, to run once:
+  pinMode(greenLed, OUTPUT);
+  pinMode(redLed, OUTPUT);
+  pinMode(lightPin, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  //put your main code here, to run repeatedly:
+  lightVal = analogRead(lightPin);
+  Serial.println(lightVal);
+  delay(dv);
+
+  if(lightVal > 600)
+  {
+    digitalWrite(greenLed, HIGH);
+    digitalWrite(redLed, LOW);
+  }
+
+  else if(lightVal < 300)
+  {
+    digitalWrite(greenLed, LOW);
+    digitalWrite(redLed, HIGH);
+  }
+  
+  
+  
+  
+}
