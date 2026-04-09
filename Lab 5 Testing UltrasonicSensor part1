@@ -1,0 +1,28 @@
+/*
+This code snippet is getting the ultrasonic sensor set up and running on the arduino.
+But we're only displaying the echo ping speed in microseconds, which only accounts for
+the speed it travels in one direction. After some calculations I got that the pingTravel 
+time was about 380 mi/hr (after some unit conversions). Multiplying this number by 2
+gives us a more realistic value for the speed of sound roughly about 760 mi/hr.
+*/
+int trigPin = 12;
+int echoPin = 11;
+int pingTravelTime;
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  pingTravelTime = pulseIn(echoPin, HIGH);
+  delay(250);
+  Serial.println(pingTravelTime);
+}
