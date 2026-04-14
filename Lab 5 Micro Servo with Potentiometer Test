@@ -1,0 +1,37 @@
+/*The servo functions well, added a power filtering capacitors to the potentiometer and to the power and ground wires of the servo
+  for a smoother knob control. Without the caps, the servo would jitter.
+*/
+#include <Servo.h>
+
+int lightPin = A1;
+int grnLed = 6;
+int redLed = 5;
+int knobPin = A0;
+int servoPin = 9;
+int knobVal = 0;
+int servoPos = 45;
+Servo myServo;
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  myServo.attach(servoPin);
+}
+
+void loop() {
+  //put your main code here, to run repeatedly:
+  knobVal = analogRead(knobPin);
+  //myServo.write(servoPos);
+  Serial.println(knobVal);
+  
+  if(knobVal <= 100)
+  {
+    servoPos = 180;
+    myServo.write(servoPos);
+  }
+  
+  else if(knobVal >= 700 || knobVal <= 1000)
+  {
+    servoPos = 0;
+    myServo.write(servoPos);
+  }
+}
