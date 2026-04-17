@@ -1,0 +1,98 @@
+#include <Servo.h>
+
+int buttonPin = 10;
+bool pressed = 0;
+int grnLed = 7;
+int redLed = 6;
+int trigPin = 12;
+int echoPin = 11;
+int photoRes = A2;
+int lightVal;
+int dv = 250;
+int knobPin = A1;
+int knobVal = 0;
+int servoPin = 9;
+int servoPos = 90;
+
+int buttonState = LOW;
+int previousState = LOW;
+
+float duration = 0;
+float distance = 0;
+
+Servo myServo;
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  myServo.attach(servoPin);
+  pinMode(grnLed, OUTPUT);
+  pinMode(redLed, OUTPUT);
+  pinMode(photoRes, INPUT);
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(buttonPin, INPUT);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  lightVal = analogRead(photoRes);
+  Serial.println(lightVal);
+  delay(dv);
+  previousState = buttonState;
+  int buttonState = digitalRead(buttonPin);
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+  distance = (duration * 0.034)/2;
+  Serial.println(distance);
+  
+  if(lightVal >= 300 && distance >= 4)
+  {
+    digitalWrite(grnLed, HIGH);
+    digitalWrite(redLed, LOW);
+    if (buttonState == HIGH && previousState == LOW)
+  {
+    previousState = buttonState = buttonState;
+    buttonState = digitalRead(buttonPin);
+    while((buttonState != LOW))
+    {
+      previousState = buttonState;
+      buttonState = digitalRead(buttonPin);
+    }
+    pressed = 1;
+  }
+
+  if(pressed == 1)
+  {
+    servoArm();
+  }
+  }
+
+  else if(lightVal < 150 || distance < 4)
+  {
+    digitalWrite(grnLed, LOW);
+    digitalWrite(redLed, HIGH);
+    servoPos = 90;
+    myServo.write(servoPos);
+  }
+}
+
+void servoArm() {
+   knobVal = analogRead(knobPin);
+    if(knobVal <= 100)
+  {
+    servoPos = 180;
+    myServo.write(servoPos);
+  }
+  
+  else if(knobVal >= 700 || knobVal <= 1000)
+  {
+    servoPos = 0;
+    myServo.write(servoPos);
+  }
+}
+
